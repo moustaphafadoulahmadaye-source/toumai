@@ -94,6 +94,7 @@ const I18N = {
     order_failed: "La commande a échoué, réessayez.", cart_load_error: "Impossible de charger le panier — vérifiez que le serveur/API tourne.",
     footer: "Boutique Toumaï — paiement à la livraison disponible",
     nav_home: "Accueil", nav_shop: "Boutique", nav_help: "Aide", nav_account: "Compte",
+    nav_register: "Créer un compte", nav_login: "Se connecter", nav_catalog_btn: "Voir le catalogue ↓",
     nav_collections: "Collections", collections_title: "Nos collections",
     collections_sub: "Des sélections pensées par thème", no_collection: "Aucune collection pour le moment."
   },
@@ -111,6 +112,7 @@ const I18N = {
     order_failed: "Order failed, try again.", cart_load_error: "Cannot load cart — check server.",
     footer: "Boutique Toumaï — cash on delivery available",
     nav_home: "Home", nav_shop: "Shop", nav_help: "Help", nav_account: "Account",
+    nav_register: "Create Account", nav_login: "Sign In", nav_catalog_btn: "View Catalog ↓",
     nav_collections: "Collections", collections_title: "Our Collections",
     collections_sub: "Curated selections by theme", no_collection: "No collections available."
   },
@@ -128,6 +130,7 @@ const I18N = {
     order_failed: "فشل الطلب، حاول مرة أخرى.", cart_load_error: "تعذر تحميل السلة — تأكد أن الخادم يعمل.",
     footer: "كولو ماركت — الدفع عند الاستلام متاح",
     nav_home: "الرئيسية", nav_shop: "المتجر", nav_help: "مساعدة", nav_account: "الحساب",
+    nav_register: "إنشاء حساب", nav_login: "تسجيل الدخول", nav_catalog_btn: "شاهد الكتالوج ↓",
     nav_collections: "المجموعات", collections_title: "مجموعاتنا",
     collections_sub: "تشكيلات مختارة حسب الموضوع", no_collection: "لا توجد مجموعة حالياً."
   }
@@ -231,6 +234,27 @@ document.addEventListener('DOMContentLoaded', () => {
   let user = null;
   if (userStr) {
     try { user = JSON.parse(userStr); } catch(e) {}
+  }
+
+  // Mise à jour dynamique du menu mobile bas (Créer un compte vs Se connecter vs Mon compte)
+  const mobileBottom = document.querySelector('.mobile-menu-bottom');
+  if (mobileBottom) {
+    if (token && user) {
+      const isAdm = user.role === 'admin';
+      const targetPage = isAdm ? 'manager.html' : 'compte.html';
+      const label = isAdm ? 'Tableau de bord Manager' : `Mon Compte (${user.name})`;
+      mobileBottom.innerHTML = `
+        <a href="${targetPage}" class="btn-solid-white" style="text-decoration:none;">${label}</a>
+        <a href="register.html" class="btn-outline-white" style="text-decoration:none; font-size:0.95rem;">+ Créer un autre compte</a>
+        <a href="produits.html" class="btn-outline-white" style="text-decoration:none; border-color:rgba(255,255,255,0.3); color:#ccc; font-size:0.9rem;">Voir le catalogue ↓</a>
+      `;
+    } else {
+      mobileBottom.innerHTML = `
+        <a href="register.html" class="btn-solid-white" style="text-decoration:none;" data-i18n="nav_register">Créer un compte</a>
+        <a href="login.html" class="btn-outline-white" style="text-decoration:none;" data-i18n="nav_login">Se connecter</a>
+        <a href="produits.html" class="btn-outline-white" style="text-decoration:none; border-color:rgba(255,255,255,0.3); color:#ccc; font-size:0.9rem;" data-i18n="nav_catalog_btn">Voir le catalogue ↓</a>
+      `;
+    }
   }
 
   if (token && user) {

@@ -99,6 +99,31 @@ router.post('/google', async (req, res) => {
 
 router.get('/me', authMiddleware, (req,res)=>res.json(req.user));
 router.get('/users', authMiddleware, adminMiddleware, async (req,res)=>{ const [users]=await db.query('SELECT id,name,email,role,created_at FROM users ORDER BY created_at DESC'); res.json(users); });
+router.post('/users', authMiddleware, adminMiddleware, async (req, res) => {
+  try {
+    const name = String(req.body.name || '').trim();
+    const email = normalizeEmail(req.body.email);
+    const password = String(req.body.password || '');
+    const role = req.body.role === 'admin' ? 'admin' : 'customer';
+
+    if (name.length < 2 || !/^\S+@\S+\.\S+$/.test(email) || password.length < 8) {
+      return res.status(400).json({ error: 'Nom (2 car. min), email valide et mot de passe (8 car. min) requis.' });
+    }
+
+    const [existing] = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+    if (existing.length) {
+      return res.status(409).json({ error: 'Cet email est déjà associé à un compte.' });
+    }
+
+    const hash = await bcrypt.hash(password, 12);
+    const [result] = await db.query('INSERT INTO users (name, email, password_hash, role) VALUES (?, ?, ?, ?)', [name, email, hash, role]);
+    
+    res.status(201).json({ success: true, user: { id: result.insertId, name, email, role } });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erreur lors de la création du compte.' });
+  }
+});
 router.delete('/users/:id', authMiddleware, adminMiddleware, async (req,res)=>{
   const id=Number(req.params.id); if (!Number.isInteger(id)) return res.status(400).json({error:'Identifiant invalide.'});
   const [target]=await db.query('SELECT id,email FROM users WHERE id=?',[id]); if(!target.length) return res.status(404).json({error:'Utilisateur introuvable.'});

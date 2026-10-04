@@ -172,6 +172,52 @@
     </div>
   </header>
 
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="mobile-menu-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #000000;" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.75rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase;">ABNA HASSAN</span>
+      </div>
+    </a>
+    <div class="mobile-menu-header-right">
+      <a href="produits.html" class="mobile-menu-cta-small">Découvrir</a>
+      <button class="close-menu-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">
+      <span data-i18n="nav_home">Accueil</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="produits.html" class="mobile-menu-link">
+      <span data-i18n="nav_shop">Boutique</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="collections.html" class="mobile-menu-link">
+      <span data-i18n="nav_collections">Collections</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="contact.html" class="mobile-menu-link">
+      <span data-i18n="nav_help">Aide</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+  <div class="mobile-menu-bottom">
+    <a href="register.html" class="btn-solid-white" data-i18n="nav_register">Créer un compte</a>
+    <a href="login.html" class="btn-outline-white" data-i18n="nav_login">Se connecter</a>
+    <a href="produits.html" class="btn-outline-white" data-i18n="nav_catalog_btn" style="border-color: rgba(255,255,255,0.3); color: #ccc; font-size: 0.95rem;">Voir le catalogue ↓</a>
+  </div>
+</div>
+
+
   <!-- Account Layout -->
   <div class="account-wrapper">
     
