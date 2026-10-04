@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Collections — Boutique Toumaï</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<header class="main-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 50;">
+  
+  <div class="header-left" style="display: flex; align-items: center;">
+    <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.45rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.8rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Outfit', sans-serif;">ABNA HASSAN</span>
+      </div>
+    </a>
+  </div>
+  
+  <nav class="header-center" style="display: flex; gap: 40px; justify-content: center;">
+    <a href="index.html" class="nav-link" data-i18n="nav_home" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Accueil</a>
+    <a href="produits.html" class="nav-link" data-i18n="nav_shop" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Boutique</a>
+    <a href="collections.html" class="nav-link" data-i18n="nav_collections" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Collections</a>
+  </nav>
+
+  <div class="header-right" style="display: flex; gap: 24px; align-items: center; justify-content: flex-end;">
+    <a href="contact.html" class="nav-link" data-i18n="nav_help" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Aide</a>
+    <a href="login.html" class="nav-link" data-i18n="nav_account" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Compte</a>
+    
+    
+    <select class="nav-lang-select" onchange="setLang(this.value)" style="background:transparent; border:none; color:var(--ink); font-family:'Inter', sans-serif; font-size:0.85rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; outline:none; appearance:none;">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="ar">AR</option>
+    </select>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lang = localStorage.getItem('kolo_lang') || 'fr';
+        document.querySelectorAll('.nav-lang-select').forEach(s => s.value = lang);
+      });
+    </script>
+
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="Changer de thème" style="background: none; border: none; cursor: pointer; color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; transition: transform 0.2s;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+
+    <button class="hamburger-btn" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu" style="margin-left: 8px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="panier.html" class="cart-btn" aria-label="Panier" style="position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">
+  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-count" style="position: absolute; top: 0px; right: 0px; background: var(--ink); color: var(--paper); font-size: 0.75rem; font-weight: 800; padding: 2px; border-radius: 50%; min-width: 20px; text-align: center; border: 2px solid var(--paper);">0</span>
+</a>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="mobile-menu-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #000000;" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.75rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase;">ABNA HASSAN</span>
+      </div>
+    </a>
+    <div class="mobile-menu-header-right">
+      <a href="produits.html" class="mobile-menu-cta-small">Découvrir</a>
+      <button class="close-menu-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">
+      <span data-i18n="nav_home">Accueil</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="produits.html" class="mobile-menu-link">
+      <span data-i18n="nav_shop">Produits</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="collections.html" class="mobile-menu-link">
+      <span data-i18n="nav_collections">Collections</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="contact.html" class="mobile-menu-link">
+      <span data-i18n="nav_help">Contact</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+  <div class="mobile-menu-bottom">
+    <a href="login.html" class="btn-outline-white" data-i18n="nav_account">Connexion</a>
+    <a href="produits.html" class="btn-solid-white" data-i18n="hero_cta">Commencer maintenant</a>
+  </div>
+</div>
+
+<section class="collections-page" style="max-width: 1400px; margin: 80px auto; padding: 0 24px;">
+  <div style="text-align: center; margin-bottom: 80px;">
+    <h1 data-i18n="collections_title" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 16px; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em;">Nos collections</h1>
+    <p class="sub" data-i18n="collections_sub" style="color: #666; font-size: 1.2rem; max-width: 600px; margin: 0 auto;">Des sélections pensées par thème pour vous inspirer.</p>
+  </div>
+  <div id="collections"></div>
+</section>
+
+<!-- Main Footer container -->
+<footer style="background-color: #000; color: #fff; padding-top: 60px; font-family: 'Inter', sans-serif;">
+
+  <!-- Main Footer Links -->
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; margin-bottom: 60px;">
+    
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Boutique</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; font-size: 1.05rem; color: #a3a3a3;">
+        <li><a href="produits.html?cat=all" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Tous les produits</a></li>
+        <li><a href="produits.html?cat=shirt" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Vêtements</a></li>
+        <li><a href="produits.html?cat=bag" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Sacs & Bagages</a></li>
+        <li><a href="produits.html?cat=phone" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Électronique</a></li>
+      </ul>
+    </div>
+    
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Support</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; font-size: 1.05rem; color: #a3a3a3;">
+        <li><a href="contact.html" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Centre d'aide</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Forum communautaire</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Guides d'achat</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">État du service</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Écosystème</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; font-size: 1.05rem; color: #a3a3a3;">
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Partenaires</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Affiliés</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Développeurs</a></li>
+      </ul>
+    </div>
+
+  </div>
+  
+  <!-- Bottom Footer -->
+  <div style="border-top: 1px solid #222; padding: 40px 24px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      
+      <!-- Left part: Language & Legal -->
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 1rem; color: #fff; cursor: pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <select onchange="setLang(this.value)" style="background:transparent; border:none; color:#fff; font-family:'Inter', sans-serif; cursor:pointer; outline:none; font-size:1rem; padding-right:8px; appearance:none;">
+            <option value="fr" style="color:#000;"><select onchange="setLang(this.value)" style="background:transparent; border:none; color:#fff; font-family:'Inter', sans-serif; cursor:pointer; outline:none; font-size:1rem; appearance:none;">
+            <option value="fr" style="color:#000;">Rwanda | Français</option>
+            <option value="en" style="color:#000;">Rwanda | English</option>
+            <option value="ar" style="color:#000;">السنغال | العربية</option>
+          </select>
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const lang = localStorage.getItem('kolo_lang') || 'fr';
+              document.querySelectorAll('select[onchange="setLang(this.value)"]').forEach(s => s.value = lang);
+            });
+          </script></option>
+            <option value="en" style="color:#000;">Rwanda | English</option>
+            <option value="ar" style="color:#000;">السنغال | العربية</option>
+          </select>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left:-4px; pointer-events:none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              const lang = localStorage.getItem('kolo_lang') || 'fr';
+              const selects = document.querySelectorAll('select[onchange="setLang(this.value)"]');
+              selects.forEach(s => s.value = lang);
+            });
+          </script>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 0.95rem; color: #a3a3a3;">
+          <a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Mentions Légales</a>
+          <a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Confidentialité</a>
+          <a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#a3a3a3'">Plan du site</a>
+        </div>
+      </div>
+
+      <!-- Right part: Social Icons -->
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <!-- Facebook -->
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <!-- X/Twitter -->
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+        <!-- Instagram -->
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <!-- YouTube -->
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script src="js/common.js"></script>
+<script>
+  let lastCollections = null;
+
+  async function loadCollections(){
+    try {
+      const res = await fetch('/api/collections');
+      if(!res.ok) throw new Error();
+      lastCollections = await res.json();
+      renderCollections(lastCollections);
+    } catch(err){
+      document.getElementById('collections').innerHTML = `<div class="empty-msg">${t('server_error')}</div>`;
+    }
+  }
+
+  function collectionName(c){ return getLang() === 'ar' && c.name_ar ? c.name_ar : c.name; }
+  function collectionDesc(c){ return getLang() === 'ar' && c.description_ar ? c.description_ar : c.description; }
+
+  function renderCollections(collections){
+    if(collections.length === 0){
+      document.getElementById('collections').innerHTML = `<div class="empty-msg">\${t('no_collection')}</div>`;
+      return;
+    }
+    document.getElementById('collections').innerHTML = collections.map(c => `
+      <div class="collection-block" style="margin-bottom: 120px;">
+        <div class="collection-head" style="margin-bottom: 40px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 24px;">
+          <h2 style="font-size: 2.5rem; margin: 0; font-family: 'Outfit', sans-serif; font-weight: 800; letter-spacing: -0.02em;">${collectionName(c)}</h2>
+          <p style="color: #555; font-size: 1.15rem; margin-top: 12px;">${collectionDesc(c) || ''}</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 32px;">
+          ${c.products.map(p => `
+            <div style="position: relative; border-radius: 20px; overflow: hidden; background: #f5f5f5; aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center;">
+              ${p.image_url 
+                 ? `<img src="${p.image_url}" alt="${p.name}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;" />` 
+                 : `<div style="position: absolute; inset: 0; background: ${CAT_COLORS[p.category] || '#333'}; display: flex; align-items: center; justify-content: center;"><div style="width: 40%; color: #fff; opacity: 0.25;">${ICONS[p.category]}</div></div>`}
+              
+              <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%); pointer-events: none;"></div>
+
+              <div style="position: absolute; bottom: 24px; left: 24px; color: #fff; pointer-events: none; z-index: 5;">
+                <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; opacity: 0.9;">${catLabel(p.category)}</div>
+                <div style="font-size: 1.6rem; font-weight: 600; line-height: 1.2;">${p.name}</div>
+                <div style="font-size: 1.15rem; font-weight: 500; margin-top: 8px;">${fmt(p.price)}</div>
+              </div>
+
+              <button onclick="openProductModal(${p.id})" style="position: absolute; top: 24px; right: 24px; z-index: 10; background: #fff; color: #000; border: none; border-radius: 50%; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              </button>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function onLangChange(){ if(lastCollections) renderCollections(lastCollections); }
+
+  loadCollections();
+</script>
+
+<!-- Modal Produit -->
+<div id="productModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+  <div style="background: var(--paper, #fff); width: 100%; max-width: 900px; border-radius: 20px; overflow: hidden; display: flex; box-shadow: 0 24px 48px rgba(0,0,0,0.2); position: relative; max-height: 90vh;">
+    <button type="button" onclick="closeProductModal()" style="position: absolute; top: 16px; right: 16px; background: rgba(0,0,0,0.05); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div id="modalImageContainer" style="width: 50%; background: #f5f5f5; position: relative;">
+    </div>
+    <div style="width: 50%; padding: 48px; display: flex; flex-direction: column; overflow-y: auto;">
+      <div id="modalCat" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary, #666); margin-bottom: 8px;"></div>
+      <h2 id="modalTitle" style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1.1; margin: 0 0 16px 0; color: var(--ink, #000);"></h2>
+      <div id="modalPrice" style="font-size: 1.5rem; font-weight: 600; color: var(--ink, #000); margin-bottom: 32px;"></div>
+      
+      <div id="modalDetailsSection" style="margin-bottom: 24px; padding: 16px; background: rgba(0,0,0,0.02); border-radius: 8px; border: 1px solid rgba(0,0,0,0.05); display: none;"></div>
+      
+      <div id="modalSizeSection" style="margin-bottom: 32px; display: none;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+          <strong id="modalOptionTitle" style="font-weight: 600; color: var(--ink, #000);">Taille</strong>
+        </div>
+        <div id="modalSizes" style="display: flex; gap: 12px; flex-wrap: wrap;"></div>
+      </div>
+      
+      <div style="margin-top: auto; display: flex; gap: 16px;">
+        <button type="button" onclick="modalAddToCart()" style="flex: 1; background: var(--ink, #000); color: var(--paper, #fff); border: none; padding: 16px; font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; border-radius: 8px; transition: opacity 0.2s;">Ajouter au panier</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .size-btn { background: transparent; border: 1px solid var(--line, #e5e7eb); padding: 0; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-weight: 600; cursor: pointer; border-radius: 8px; transition: 0.2s; color: var(--ink, #000); }
+  .size-btn:hover { border-color: var(--ink, #000); }
+  .size-btn.active { background: var(--ink, #000); color: var(--paper, #fff); border-color: var(--ink, #000); }
+</style>
+  
+</body>
+</html>

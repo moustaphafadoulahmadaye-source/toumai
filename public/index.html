@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BOUTIQUE TOUMAÏ — L'excellence Mode & Tech</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="main-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 50;">
+  
+  <div class="header-left" style="display: flex; align-items: center;">
+    <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.45rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.8rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Outfit', sans-serif;">ABNA HASSAN</span>
+      </div>
+    </a>
+  </div>
+  
+  <nav class="header-center" style="display: flex; gap: 40px; justify-content: center;">
+    <a href="index.html" class="nav-link" data-i18n="nav_home" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Accueil</a>
+    <a href="produits.html" class="nav-link" data-i18n="nav_shop" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Boutique</a>
+    <a href="collections.html" class="nav-link" data-i18n="nav_collections" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Collections</a>
+  </nav>
+
+  <div class="header-right" style="display: flex; gap: 24px; align-items: center; justify-content: flex-end;">
+    <a href="contact.html" class="nav-link" data-i18n="nav_help" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Aide</a>
+    <a href="login.html" class="nav-link" data-i18n="nav_account" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Compte</a>
+    
+    <select class="nav-lang-select" onchange="setLang(this.value)" style="background:transparent; border:none; color:var(--ink); font-family:'Inter', sans-serif; font-size:0.85rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; outline:none; appearance:none;">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="ar">AR</option>
+    </select>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lang = localStorage.getItem('kolo_lang') || 'fr';
+        document.querySelectorAll('.nav-lang-select').forEach(s => s.value = lang);
+      });
+    </script>
+
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="Changer de thème" style="background: none; border: none; cursor: pointer; color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; transition: transform 0.2s;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+
+    <button class="hamburger-btn" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu" style="margin-left: 8px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="panier.html" class="cart-btn" aria-label="Panier" style="position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+      <span class="cart-count" style="position: absolute; top: 0px; right: 0px; background: var(--ink); color: var(--paper); font-size: 0.75rem; font-weight: 800; padding: 2px; border-radius: 50%; min-width: 20px; text-align: center; border: 2px solid var(--paper);">0</span>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="mobile-menu-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #000000;" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.75rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase;">ABNA HASSAN</span>
+      </div>
+    </a>
+    <div class="mobile-menu-header-right">
+      <a href="produits.html" class="mobile-menu-cta-small">Découvrir</a>
+      <button class="close-menu-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">
+      <span data-i18n="nav_home">Accueil</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="produits.html" class="mobile-menu-link">
+      <span data-i18n="nav_shop">Boutique</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="collections.html" class="mobile-menu-link">
+      <span data-i18n="nav_collections">Collections</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="contact.html" class="mobile-menu-link">
+      <span data-i18n="nav_help">Contact</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+  <div class="mobile-menu-bottom">
+    <a href="login.html" class="btn-outline-white" data-i18n="nav_account">Connexion</a>
+    <a href="produits.html" class="btn-solid-white" data-i18n="hero_cta">Commencer maintenant</a>
+  </div>
+</div>
+
+<!-- Hero Section with SINGLE STATIC IMAGE and exact requested texts -->
+<section class="hero" id="heroSection" style="height: 100vh; position: relative; margin-top: -85px; overflow: hidden; background: #000;">
+  <!-- Blurred Background -->
+  <div id="heroBlur" style="position: absolute; inset: -50px; background-image: url('images/hero.jpg'); background-size: cover; background-position: center; filter: blur(30px); opacity: 0.5;"></div>
+  <!-- Actual Contained Image -->
+  <div id="heroImage" style="position: absolute; inset: 0; background-image: url('images/hero.jpg'); background-size: contain; background-repeat: no-repeat; background-position: center;"></div>
+  <!-- Dark overlay for text readability -->
+  <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);"></div>
+  <div class="hero-inner" style="position: absolute; bottom: 80px; left: 40px; max-width: 850px; z-index: 2;">
+    <h1 data-i18n="hero_title" style="font-size: clamp(2.4rem, 5.2vw, 4.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; color: #fff; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.35);">
+      VÊTEMENTS, SACS ET TÉLÉPHONES &mdash; TOUT AU MÊME ENDROIT.
+    </h1>
+    <p data-i18n="hero_text" style="font-size: 1.15rem; color: rgba(255,255,255,0.92); max-width: 650px; margin-bottom: 32px; line-height: 1.6; font-weight: 400; text-shadow: 0 1px 6px rgba(0,0,0,0.35);">
+      La boutique en ligne qui rassemble mode moderne, accessoires et tech du quotidien, livrés chez vous.
+    </p>
+    <a href="produits.html" class="hero-cta" data-i18n="hero_cta" style="background: #fff; color: #000; padding: 16px 36px; border-radius: 4px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.2s, background 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+      VOIR LE CATALOGUE &darr;
+    </a>
+  </div>
+</section>
+<script>
+  // Anti-cache for the hero image
+  document.addEventListener("DOMContentLoaded", () => {
+    const heroBlur = document.getElementById("heroBlur");
+    const heroImg = document.getElementById("heroImage");
+    const cacheBuster = `url('images/hero.jpg?v=${new Date().getTime()}')`;
+    if (heroBlur) heroBlur.style.backgroundImage = cacheBuster;
+    if (heroImg) heroImg.style.backgroundImage = cacheBuster;
+  });
+</script>
+
+<!-- Featured Categories (Editorial 2x2 Grid) -->
+<style>
+  #featuredCats {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 900px) {
+    #featuredCats {
+      grid-template-columns: 1fr !important;
+    }
+  }
+</style>
+<section style="max-width: 1400px; margin: 80px auto 0; padding: 0 32px; display: grid; gap: 32px;" id="featuredCats">
+  <a href="produits.html?cat=shirt" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-clothes').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-clothes').style.transform='scale(1)'">
+    <img src="images/product_shirt.jpg" class="featured-img-clothes" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Vêtements">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Mode & Style</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">VÊTEMENTS</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=phone" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-tech').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-tech').style.transform='scale(1)'">
+    <img src="images/product_phone.jpg" class="featured-img-tech" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Technologie">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">High-Tech</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">TECHNOLOGIE</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=parfum" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-parfum').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-parfum').style.transform='scale(1)'">
+    <img src="images/product_parfum.jpg" class="featured-img-parfum" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Parfums">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Beauté & Luxe</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">PARFUMS</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=belt" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-ceinture').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-ceinture').style.transform='scale(1)'">
+    <img src="images/product_ceinture.jpg" class="featured-img-ceinture" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Ceintures">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Accessoires Cuir</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">CEINTURES</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=veste" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-veste').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-veste').style.transform='scale(1)'">
+    <img src="images/product_veste.jpg" class="featured-img-veste" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Vestes et Manteaux">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Mode Hiver & Mi-saison</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">VESTES</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=chaussures" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-chaussures').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-chaussures').style.transform='scale(1)'">
+    <img src="images/product_chaussures.jpg" class="featured-img-chaussures" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Chaussures et Sandales">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Sneakers & Sandales</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">CHAUSSURES</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=enfants" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-enfants').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-enfants').style.transform='scale(1)'">
+    <img src="images/product_enfants.jpg" class="featured-img-enfants" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Mode Enfants">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Collections Kids & Ados</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">ENFANTS</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <a href="produits.html?cat=chaussures_enfants" style="position: relative; height: 65vh; min-height: 450px; overflow: hidden; display: block; border-radius: 32px; background: #111;" onmouseover="this.querySelector('.featured-img-chauss-enf').style.transform='scale(1.05)'" onmouseout="this.querySelector('.featured-img-chauss-enf').style.transform='scale(1)'">
+    <img src="images/product_chaussures_enfants.jpg" class="featured-img-chauss-enf" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);" alt="Chaussures Enfants">
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 50px; left: 50px; color: #fff; z-index: 2;">
+      <div style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; opacity: 0.9; color: #ddd;">Pointures 18 à 37</div>
+      <h3 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 32px; font-weight: 800; line-height: 1; letter-spacing: -0.02em;">CHAUSSURES ENFANTS</h3>
+      <span style="background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 700; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; display: inline-flex; align-items: center; gap: 12px; transition: transform 0.2s, box-shadow 0.2s;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 12px 24px rgba(0,0,0,0.2)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        Explorer <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </span>
+    </div>
+  </a>
+</section>
+
+<!-- Inspiration Section (Shopify-like design) -->
+<style>
+  .inspiration-grid {
+    column-count: 3;
+    column-gap: 16px;
+    margin-top: 40px;
+  }
+  @media (max-width: 900px) {
+    .inspiration-grid { column-count: 2; }
+  }
+  @media (max-width: 600px) {
+    .inspiration-grid { column-count: 1; }
+  }
+  .inspiration-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #111;
+  }
+  .inspiration-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .inspiration-item:hover img {
+    transform: scale(1.05);
+  }
+</style>
+<section style="background-color: #000; color: #fff; padding: 120px 32px; font-family: 'Inter', sans-serif; margin-top: 80px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div style="max-width: 700px; margin-bottom: 60px;">
+      <div style="font-size: 0.9rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 24px; text-transform: uppercase;">
+        Boutique Toumaï Exemples
+      </div>
+      <h2 style="font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.05; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 32px; color: #fff; text-transform: none;">
+        Trouvez l'inspiration pour votre style
+      </h2>
+      <p style="font-size: 1.25rem; color: #a3a3a3; line-height: 1.5; margin-bottom: 48px; font-weight: 400; max-width: 550px; text-transform: none;">
+        Des vêtements premium aux accessoires high-tech, explorez nos collections et laissez-vous inspirer pour sublimer votre quotidien.
+      </p>
+      <a href="produits.html" style="display: inline-flex; align-items: center; justify-content: center; background: #fff; color: #000; padding: 18px 36px; border-radius: 999px; font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: opacity 0.2s ease;">
+        Découvrir nos styles
+      </a>
+    </div>
+
+    <!-- Image Grid -->
+    <div class="inspiration-grid" id="inspGrid">
+      <div class="inspiration-item" style="position: relative; height: 350px;">
+        <img src="images/product_shirt.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Vêtements homme">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 250px;">
+        <img src="images/product_other.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Sneakers">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 400px;">
+        <img src="images/product_phone.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Tech Audio">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 280px;">
+        <img src="images/product_other.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Appareil photo">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 320px;">
+        <img src="images/product_phone.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Smartwatch">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 260px;">
+        <img src="images/product_bag.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Sac à dos urbain">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 350px;">
+        <img src="images/product_veste.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Veste tendance">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 250px;">
+        <img src="images/product_chaussures.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Chaussures de mode">
+      </div>
+      <div class="inspiration-item" style="position: relative; height: 300px;">
+        <img src="images/product_enfants.jpg" style="position: absolute; inset: 0; height: 100%; object-fit: cover;" alt="Mode enfants">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Products (Vertical Grid) -->
+<section class="catalog" style="margin-top: 100px;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+    <h2 style="font-size: 2.5rem; margin: 0;">NOUVEAUTÉS</h2>
+    <a href="produits.html" style="font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; border-bottom: 1px solid var(--ink); padding-bottom: 4px; text-decoration: none; color: var(--ink);">Voir tout</a>
+  </div>
+  <div class="grid" id="latestProducts">
+    <p style="color: var(--text-secondary);">Chargement...</p>
+  </div>
+</section>
+
+<!-- About Us (Split section) -->
+<section style="display: flex; flex-wrap: wrap; margin-top: 100px; background: #000; color: #fff;">
+  <div style="flex: 1 1 500px; min-height: 50vh; background: url('images/contact_hero.jpg') center/cover;"></div>
+  <div style="flex: 1 1 500px; padding: 100px 80px; display: flex; flex-direction: column; justify-content: center;">
+    <h2 style="font-size: 2.5rem; margin-bottom: 24px; color: #fff;">L'ART DE VIVRE.</h2>
+    <p style="font-size: 1.1rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 40px; font-weight: 300;">
+      Bienvenue sur Boutique Toumaï. Nous fusionnons la mode contemporaine avec la technologie de pointe pour vous offrir une sélection d'articles exceptionnels.
+    </p>
+    <a href="contact.html" style="align-self: flex-start; border: 1px solid #fff; padding: 16px 32px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; text-decoration: none; transition: all 0.3s;">Nous Contacter</a>
+  </div>
+</section>
+
+<!-- Main Footer container -->
+<footer style="background-color: #000; color: #fff; padding-top: 60px; font-family: 'Inter', sans-serif;">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 60px; margin-bottom: 60px;">
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Boutique</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; font-size: 1.05rem; color: #a3a3a3;">
+        <li><a href="produits.html?cat=all" style="color: inherit; text-decoration: none; transition: color 0.2s;">Tous les produits</a></li>
+        <li><a href="produits.html?cat=shirt" style="color: inherit; text-decoration: none; transition: color 0.2s;">Vêtements</a></li>
+        <li><a href="produits.html?cat=bag" style="color: inherit; text-decoration: none; transition: color 0.2s;">Sacs & Bagages</a></li>
+        <li><a href="produits.html?cat=phone" style="color: inherit; text-decoration: none; transition: color 0.2s;">Électronique</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Support</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; font-size: 1.05rem; color: #a3a3a3;">
+        <li><a href="contact.html" style="color: inherit; text-decoration: none; transition: color 0.2s;">Centre d'aide</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;">Forum communautaire</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;">Guides d'achat</a></li>
+        <li><a href="#" style="color: inherit; text-decoration: none; transition: color 0.2s;">État du service</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size: 1.15rem; margin-bottom: 24px; font-weight: 500; color: #fff;">Contact</h4>
+      <p style="color: #a3a3a3; line-height: 1.6; margin-bottom: 12px;">Téléphone : <strong>66483146 - 99788569 - 66782203</strong></p>
+      <p style="color: #a3a3a3; line-height: 1.6;">Localisation : <strong>Abéché, Tchad</strong></p>
+    </div>
+  </div>
+  
+  <!-- Bottom Footer -->
+  <div style="border-top: 1px solid #222; padding: 40px 24px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px;">
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; align-items: center; gap: 8px; font-size: 1rem; color: #fff;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span style="font-weight: 600;">Abéché, Tchad</span>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; font-size: 0.95rem; color: #a3a3a3;">
+          <a href="#" style="color: inherit; text-decoration: none;">Mentions Légales</a>
+          <a href="#" style="color: inherit; text-decoration: none;">Confidentialité</a>
+          <a href="#" style="color: inherit; text-decoration: none;">Plan du site</a>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg></a>
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="#" style="background: #fff; color: #000; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.33 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Product Modal -->
+<div id="productModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; padding: 24px;">
+  <div style="background: var(--paper, #fff); width: 100%; max-width: 900px; border-radius: 20px; overflow: hidden; display: flex; flex-direction: row; max-height: 90vh; position: relative;">
+    <button onclick="closeProductModal()" style="position: absolute; top: 16px; right: 16px; background: var(--paper, #fff); color: var(--ink, #000); border: none; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <div id="modalImageContainer" style="flex: 1; background: #f5f5f5; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; min-height: 300px;"></div>
+    <div style="flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; background: var(--paper, #fff);">
+      <div id="modalCat" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary, #666); margin-bottom: 12px; font-weight: 600;"></div>
+      <h2 id="modalTitle" style="font-size: 2.5rem; font-family: 'Outfit', sans-serif; font-weight: 700; margin: 0 0 16px; line-height: 1.1; color: var(--ink, #000);"></h2>
+      <div id="modalPrice" style="font-size: 1.8rem; font-weight: 600; color: var(--ink, #000); margin-bottom: 32px;"></div>
+      <div id="modalDetailsSection" style="display: none; margin-bottom: 24px; padding: 16px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee;"></div>
+      <div id="modalSizeSection" style="display: none; margin-bottom: 24px;">
+        <div style="font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink, #000);">Taille</div>
+        <div id="modalSizes" style="display: flex; gap: 12px; flex-wrap: wrap;"></div>
+      </div>
+      <div id="modalQtySection" style="margin-bottom: 32px;">
+        <div style="font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink, #000);">Quantité</div>
+        <div style="display: flex; align-items: center; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; width: max-content;">
+          <button onclick="changeModalQty(-1)" style="background: transparent; border: none; padding: 12px 16px; cursor: pointer; color: var(--ink); font-size: 1.2rem; transition: background 0.2s;">−</button>
+          <span id="modalQty" style="font-size: 1rem; font-weight: 600; width: 40px; text-align: center; color: var(--ink);">1</span>
+          <button onclick="changeModalQty(1)" style="background: transparent; border: none; padding: 12px 16px; cursor: pointer; color: var(--ink); font-size: 1.2rem; transition: background 0.2s;">+</button>
+        </div>
+      </div>
+      <div style="margin-top: auto;">
+        <button id="modalAddBtn" onclick="modalAddToCart()" style="width: 100%; padding: 20px; background: var(--ink, #000); color: var(--paper, #fff); border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; transition: transform 0.2s;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  @media (max-width: 768px) {
+    #productModal > div { flex-direction: column !important; }
+    #modalImageContainer { min-height: 250px !important; flex: none !important; height: 35vh; }
+    #productModal > div > div:last-child { padding: 24px !important; }
+  }
+  .size-btn { width: 50px; height: 50px; border: 1px solid var(--line, #ddd); border-radius: 8px; background: var(--paper, #fff); color: var(--ink, #000); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 1rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+  .size-btn:hover { border-color: var(--ink, #000); }
+  .size-btn.active { background: var(--ink, #000); color: var(--paper, #fff); border-color: var(--ink, #000); }
+</style>
+
+<script src="js/common.js"></script>
+<script>
+  let currentModalProduct = null;
+  let selectedSize = null;
+  let modalQtyVal = 1;
+  let indexProducts = [];
+
+  window.openProductModal = function(id) {
+    const p = indexProducts.find(x => x.id === id);
+    if(!p) return;
+    currentModalProduct = p;
+    selectedSize = null;
+    modalQtyVal = 1;
+    document.getElementById('modalQty').textContent = modalQtyVal;
+
+    document.getElementById('modalCat').textContent = catLabel(p.category);
+    document.getElementById('modalTitle').textContent = p.name;
+    document.getElementById('modalPrice').textContent = fmt(p.price);
+
+    const imgContainer = document.getElementById('modalImageContainer');
+    if (p.image_url) {
+      imgContainer.innerHTML = `<img src="${p.image_url}" alt="${p.name}" style="width: 100%; height: 100%; object-fit: cover;" />`;
+    } else {
+      imgContainer.innerHTML = `<div style="width: 100%; height: 100%; background: ${CAT_COLORS[p.category] || '#333'}; display: flex; align-items: center; justify-content: center;"><div style="width: 40%; color: #fff; opacity: 0.25;">${ICONS[p.category]}</div></div>`;
+    }
+
+    const detailsSection = document.getElementById('modalDetailsSection');
+    if (p.category === 'bag') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Luxe</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Premium 100% (Cuir / Tissé artisanal)</div>`;
+    } else if (p.category === 'phone') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Tech</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Authentique certifié</div>`;
+    } else if (p.category === 'shirt') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Wear</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Coton biologique / Denim premium</div>`;
+    } else if (p.category === 'chaussures') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Chaussures</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Premium, Confort & Durabilité</div>`;
+    } else if (p.category === 'veste') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Mode</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Cuir véritable / Tissu Haute Qualité</div>`;
+    } else if (p.category === 'parfum') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Beauté</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Fragrance originale 100% authentique</div>`;
+    } else if (p.category === 'enfants') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Kids</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Matériaux doux et résistants</div>`;
+    } else if (p.category === 'chaussures_enfants') {
+      detailsSection.style.display = 'block';
+      detailsSection.innerHTML = `<div style="font-size: 0.95rem; color: #444; margin-bottom: 8px;"><strong style="font-weight: 700; color: #000;">Marque :</strong> Boutique Toumaï Kids Shoes</div>
+                                  <div style="font-size: 0.95rem; color: #444;"><strong style="font-weight: 700; color: #000;">Qualité :</strong> Confort & Maintien</div>`;
+    } else {
+      detailsSection.style.display = 'none';
+      detailsSection.innerHTML = '';
+    }
+
+    const sizeSection = document.getElementById('modalSizeSection');
+    const sizesContainer = document.getElementById('modalSizes');
+    const optionTitle = document.getElementById('modalSizeTitle') || sizeSection.querySelector('div'); // Handle title change
+    
+    if (p.category === 'shirt') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Taille';
+      const sizes = ['S', 'M', 'L', 'XL', 'XXL', '3XL'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'veste') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Taille';
+      const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'chaussures') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Pointure (Numéro)';
+      const sizes = ['38', '39', '40', '41', '42', '43', '44', '45'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'parfum') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Volume';
+      const sizes = ['50ml', '100ml'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" style="padding: 8px 16px; width: auto;" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'enfants') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Âge';
+      const sizes = ['1 an', '2 ans', '3 ans', '4 ans', '5 ans', '6 ans', '8 ans', '10 ans', '12 ans', '14 ans', '16 ans', '18 ans'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" style="padding: 8px 16px; width: auto;" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'chaussures_enfants') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Pointure';
+      const sizes = ['18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37'];
+      sizesContainer.innerHTML = sizes.map(s => `<button type="button" class="size-btn" onclick="selectSize('${s}')">${s}</button>`).join('');
+    } else if (p.category === 'phone') {
+      sizeSection.style.display = 'block';
+      if(optionTitle) optionTitle.textContent = 'Modèle / Marque';
+      const brands = ['iPhone', 'Samsung', 'Tecno'];
+      sizesContainer.innerHTML = brands.map(b => `<button type="button" class="size-btn" style="padding: 8px 16px; width: auto;" onclick="selectSize('${b}')">${b}</button>`).join('');
+    } else {
+      sizeSection.style.display = 'none';
+      sizesContainer.innerHTML = '';
+    }
+
+    document.getElementById('productModal').style.display = 'flex';
+  };
+
+  window.selectSize = function(size) {
+    selectedSize = size;
+    document.querySelectorAll('#productModal .size-btn').forEach(b => {
+      if (b.textContent === size) b.classList.add('active');
+      else b.classList.remove('active');
+    });
+  };
+
+  window.closeProductModal = function() {
+    document.getElementById('productModal').style.display = 'none';
+  };
+
+  window.changeModalQty = function(delta) {
+    modalQtyVal = Math.max(1, modalQtyVal + delta);
+    document.getElementById('modalQty').textContent = modalQtyVal;
+  };
+
+  window.modalAddToCart = function() {
+    if (!currentModalProduct) return;
+    if (['shirt', 'phone', 'veste', 'chaussures', 'parfum', 'enfants', 'chaussures_enfants'].includes(currentModalProduct.category) && !selectedSize) {
+      alert("Veuillez faire une sélection (Pointure, Taille, Âge, Modèle ou Volume).");
+      return;
+    }
+    
+    const cartId = selectedSize ? `${currentModalProduct.id}_${selectedSize}` : currentModalProduct.id;
+    addToCart(cartId, modalQtyVal);
+    
+    const btn = document.getElementById('modalAddBtn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Ajouté !`;
+    btn.style.background = '#429214';
+    btn.style.color = '#fff';
+    
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+      closeProductModal();
+    }, 1000);
+  };
+
+  async function loadLatestProducts() {
+    try {
+      const res = await fetch('/api/products?category=all');
+      if (!res.ok) throw new Error();
+      const products = await res.json();
+      indexProducts = products;
+      
+      const strip = document.getElementById('latestProducts');
+      strip.innerHTML = products.slice(0, 8).map(p => `
+        <div onclick="openProductModal(${p.id})" style="cursor: pointer; display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
+          <!-- Image Container -->
+          <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f5f5f5; aspect-ratio: 4/3;">
+            ${p.image_url 
+               ? `<img src="${p.image_url}" alt="${p.name}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />` 
+               : `<div style="position: absolute; inset: 0; background: ${CAT_COLORS[p.category] || '#eee'}; display: flex; align-items: center; justify-content: center; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><div style="width: 40%; color: #fff; opacity: 0.5;">${ICONS[p.category]}</div></div>`}
+            
+            <button onclick="event.stopPropagation(); openProductModal(${p.id})" style="position: absolute; bottom: 12px; right: 12px; background: var(--ink, #000); color: var(--paper, #fff); border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s, background 0.2s;" onmouseover="this.style.transform='scale(1.1)'; this.style.background='#333'" onmouseout="this.style.transform='scale(1)'; this.style.background='var(--ink, #000)'" title="Ajouter au panier">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <!-- Text Info -->
+          <div style="padding: 0 4px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
+            <div style="flex: 1;">
+              <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary, #666); margin-bottom: 6px; font-weight: 600;">${catLabel(p.category)}</div>
+              <div style="font-size: 1.1rem; font-weight: 700; color: var(--ink, #000); line-height: 1.3;">${p.name}</div>
+            </div>
+            <div style="font-size: 1.1rem; font-weight: 700; color: var(--ink, #000); white-space: nowrap;">${fmt(p.price)}</div>
+          </div>
+        </div>
+      `).join('');
+    } catch (e) {
+      document.getElementById('latestProducts').innerHTML = '<p class="empty-msg">Impossible de charger les produits.</p>';
+    }
+  }
+
+  function onLangChange(){ loadLatestProducts(); }
+  loadLatestProducts();
+</script>
+
+<!-- Welcome Modal -->
+<div id="welcomeModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center; backdrop-filter:blur(4px);">
+  <div style="background:#fff; width:100%; max-width:480px; padding:40px; border-radius:12px; position:relative; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.2); animation: popIn 0.3s ease-out forwards;">
+    <button onclick="document.getElementById('welcomeModalOverlay').style.display='none'" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#666; transition:color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='#666'">&times;</button>
+    <h2 style="font-family:'Outfit', sans-serif; font-size:2.2rem; font-weight:700; margin-bottom:12px; color:#000;">Bienvenue !</h2>
+    <p style="color:#555; font-size:1rem; margin-bottom:24px;">Créez votre compte gratuit en quelques secondes | <a href="login.html" style="color:#1a73e8; font-weight:600; text-decoration:none;">Se connecter</a></p>
+    
+    <form id="welcomeForm" style="display:flex; flex-direction:column; gap:16px;" onsubmit="handleWelcomeRegister(event)">
+      <input type="text" id="w_name" placeholder="Votre nom" required style="padding:14px; border:1px solid #ddd; border-radius:8px; font-size:1rem; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='#000'" onblur="this.style.borderColor='#ddd'">
+      <input type="email" id="w_email" placeholder="Adresse e-mail" required style="padding:14px; border:1px solid #ddd; border-radius:8px; font-size:1rem; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='#000'" onblur="this.style.borderColor='#ddd'">
+      <input type="password" id="w_password" placeholder="Mot de passe" required style="padding:14px; border:1px solid #ddd; border-radius:8px; font-size:1rem; outline:none; transition:border-color 0.2s;" onfocus="this.style.borderColor='#000'" onblur="this.style.borderColor='#ddd'">
+      <p style="font-size:0.8rem; color:#888; text-align:center; margin:0;">Avez-vous un code promo / de parrainage ?</p>
+      <button type="submit" style="background:#429214; color:#fff; border:none; padding:16px; border-radius:8px; font-size:1.1rem; font-weight:600; cursor:pointer; transition:transform 0.1s, background 0.2s;" onmouseover="this.style.background='#367a10'" onmouseout="this.style.background='#429214'">Inscrivez-vous gratuitement</button>
+      <p style="font-size:0.75rem; color:#888; margin-top:8px;">En cliquant sur Valider, vous acceptez nos termes et conditions générales.</p>
+    </form>
+  </div>
+</div>
+<style>
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!localStorage.getItem('kolo_token') && !sessionStorage.getItem('welcomeShown')) {
+      setTimeout(() => {
+        const modal = document.getElementById('welcomeModalOverlay');
+        if(modal) {
+          modal.style.display = 'flex';
+          sessionStorage.setItem('welcomeShown', 'true');
+        }
+      }, 3000);
+    }
+  });
+
+  async function handleWelcomeRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById('w_name').value;
+    const email = document.getElementById('w_email').value;
+    const password = document.getElementById('w_password').value;
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.textContent = 'Création...';
+    btn.disabled = true;
+    
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('kolo_token', data.token);
+        localStorage.setItem('kolo_user', JSON.stringify(data.user));
+        document.getElementById('welcomeModalOverlay').style.display='none';
+        window.location.reload();
+      } else {
+        alert(data.error || 'Erreur');
+        btn.textContent = 'Inscrivez-vous gratuitement';
+        btn.disabled = false;
+      }
+    } catch(err) {
+      alert('Erreur de connexion');
+      btn.textContent = 'Inscrivez-vous gratuitement';
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>

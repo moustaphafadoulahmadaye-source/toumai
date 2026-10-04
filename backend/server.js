@@ -1,0 +1,15 @@
+const express=require('express'); const cors=require('cors'); const path=require('path'); const fs=require('fs'); require('dotenv').config();
+const db=require('./db'); const {router:authRouter}=require('./routes/auth'); const productsRouter=require('./routes/products'); const ordersRouter=require('./routes/orders'); const collectionsRouter=require('./routes/collections'); const contactRouter=require('./routes/contact');
+const app=express();
+app.disable('x-powered-by');
+const allowedOrigins=(process.env.CORS_ORIGIN||'').split(',').map(s=>s.trim()).filter(Boolean);
+app.use(cors({origin:(origin,cb)=>{if(!origin||allowedOrigins.includes(origin)) return cb(null,true); cb(new Error('CORS origin denied'));},methods:['GET','POST','PUT','DELETE','OPTIONS'],allowedHeaders:['Content-Type','Authorization']}));
+app.use(express.json({limit:'100kb'}));
+const rate=new Map();
+app.use('/api/auth',(req,res,next)=>{const key=req.ip;const now=Date.now();const r=rate.get(key)||{n:0,t:now};if(now-r.t>15*60*1000){r.n=0;r.t=now;}r.n++;rate.set(key,r);if(r.n>100)return res.status(429).json({error:'Trop de requêtes. Réessayez plus tard.'});next();},authRouter);
+app.use('/api/products',productsRouter); app.use('/api/orders',ordersRouter); app.use('/api/collections',collectionsRouter); app.use('/api/contact',contactRouter); app.use('/api/account',require('./routes/account')); app.use('/api/settings',require('./routes/settings'));
+app.get('/api/config', (req, res) => res.json({ googleClientId: process.env.GOOGLE_CLIENT_ID || '' }));
+const uploadsDir=path.join(__dirname,'..','public','uploads'); if(!fs.existsSync(uploadsDir))fs.mkdirSync(uploadsDir,{recursive:true});
+app.use(express.static(path.join(__dirname,'..','public'),{index:'index.html'}));
+app.use((err,req,res,next)=>{console.error(err);if(res.headersSent)return next(err);res.status(500).json({error:'Erreur serveur'});});
+const PORT=Number(process.env.PORT||3000); db.ready.then(()=>app.listen(PORT,()=>console.log(`Boutique Toumaï: http://localhost:${PORT}`)));

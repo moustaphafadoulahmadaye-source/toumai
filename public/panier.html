@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Panier — Boutique Toumaï</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+<header class="main-header" style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: 0; z-index: 50;">
+  
+  <div class="header-left" style="display: flex; align-items: center;">
+    <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.45rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.8rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Outfit', sans-serif;">ABNA HASSAN</span>
+      </div>
+    </a>
+  </div>
+  
+  <nav class="header-center" style="display: flex; gap: 40px; justify-content: center;">
+    <a href="index.html" class="nav-link" data-i18n="nav_home" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Accueil</a>
+    <a href="produits.html" class="nav-link" data-i18n="nav_shop" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Boutique</a>
+    <a href="collections.html" class="nav-link" data-i18n="nav_collections" style="font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">Collections</a>
+  </nav>
+
+  <div class="header-right" style="display: flex; gap: 24px; align-items: center; justify-content: flex-end;">
+    <a href="contact.html" class="nav-link" data-i18n="nav_help" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Aide</a>
+    <a href="login.html" class="nav-link" data-i18n="nav_account" style="font-family: 'Inter', sans-serif; font-size: 0.85rem; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; transition: opacity 0.2s;">Compte</a>
+    
+    
+    <select class="nav-lang-select" onchange="setLang(this.value)" style="background:transparent; border:none; color:var(--ink); font-family:'Inter', sans-serif; font-size:0.85rem; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; cursor:pointer; outline:none; appearance:none;">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="ar">AR</option>
+    </select>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const lang = localStorage.getItem('kolo_lang') || 'fr';
+        document.querySelectorAll('.nav-lang-select').forEach(s => s.value = lang);
+      });
+    </script>
+
+    <button id="themeToggleBtn" class="theme-toggle-btn" title="Changer de thème" style="background: none; border: none; cursor: pointer; color: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0; transition: transform 0.2s;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    </button>
+
+    <button class="hamburger-btn" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu" style="margin-left: 8px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="panier.html" class="cart-btn" aria-label="Panier" style="position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">
+  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-count" style="position: absolute; top: 0px; right: 0px; background: var(--ink); color: var(--paper); font-size: 0.75rem; font-weight: 800; padding: 2px; border-radius: 50%; min-width: 20px; text-align: center; border: 2px solid var(--paper);">0</span>
+</a>
+  </div>
+</header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <a href="index.html" class="mobile-menu-logo" style="display: flex; align-items: center; gap: 10px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #000000;" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.75rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase;">ABNA HASSAN</span>
+      </div>
+    </a>
+    <div class="mobile-menu-header-right">
+      <a href="produits.html" class="mobile-menu-cta-small">Découvrir</a>
+      <button class="close-menu-btn" onclick="document.getElementById('mobileMenu').classList.remove('open')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu-nav">
+    <a href="index.html" class="mobile-menu-link">
+      <span data-i18n="nav_home">Accueil</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="produits.html" class="mobile-menu-link">
+      <span data-i18n="nav_shop">Produits</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="collections.html" class="mobile-menu-link">
+      <span data-i18n="nav_collections">Collections</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="contact.html" class="mobile-menu-link">
+      <span data-i18n="nav_help">Contact</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </nav>
+  <div class="mobile-menu-bottom">
+    <a href="login.html" class="btn-outline-white" data-i18n="nav_account">Connexion</a>
+    <a href="produits.html" class="btn-solid-white" data-i18n="hero_cta">Commencer maintenant</a>
+  </div>
+</div>
+
+<section style="max-width: 1400px; margin: 80px auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr; gap: 80px; align-items: start;">
+  <!-- Left column: Items -->
+  <div>
+    <h1 style="font-size: 2.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; letter-spacing: -0.02em; margin-bottom: 40px; text-transform: uppercase; color: var(--ink);">Votre panier</h1>
+    <div id="items" style="display: flex; flex-direction: column; gap: 32px;"></div>
+  </div>
+
+  <!-- Right column: Summary -->
+  <div class="cart-summary" id="summary" style="display:none; position: sticky; top: 120px; background: var(--paper); padding: 40px; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+    <h3 style="font-size: 1.25rem; font-family: 'Outfit', sans-serif; font-weight: 700; text-transform: uppercase; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line); color: var(--ink);">Résumé de la commande</h3>
+    
+    <div style="display: flex; justify-content: space-between; font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px;">
+      <span>Sous-total</span>
+      <span id="subtotal">0 FCFA</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 1rem; color: var(--text-secondary); margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--line);">
+      <span>Livraison (Standard)</span>
+      <span>2 000 FCFA</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: 600; margin-bottom: 32px; color: var(--ink);">
+      <span>Total</span>
+      <span id="total">0 FCFA</span>
+    </div>
+
+    <form class="checkout-form" id="checkoutForm" style="display: flex; flex-direction: column; gap: 16px;">
+      <input type="text" id="customer_name" placeholder="Nom complet" required style="width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: transparent; color: var(--ink); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--line)'">
+      <input type="email" id="email" placeholder="Adresse email" required style="width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: transparent; color: var(--ink); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--line)'">
+      <input type="tel" id="phone" placeholder="Numéro de téléphone" required style="width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: transparent; color: var(--ink); outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--line)'">
+      <textarea id="address" placeholder="Adresse de livraison" rows="2" required style="width: 100%; padding: 16px; border: 1px solid var(--line); border-radius: 8px; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: transparent; color: var(--ink); outline: none; resize: vertical; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--line)'"></textarea>
+      
+      <button type="submit" style="width: 100%; background: var(--ink); color: var(--paper); border: none; padding: 20px; border-radius: 8px; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; cursor: pointer; transition: transform 0.2s, opacity 0.2s; margin-top: 16px;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+        Commander
+      </button>
+      <div class="form-msg" id="formMsg" style="text-align: center; margin-top: 16px; font-weight: 500; color: var(--ink);"></div>
+    </form>
+  </div>
+</section>
+
+<footer style="background-color: var(--ink); color: #fff; padding: 60px 24px 30px; margin-top: 80px;">
+  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px;">
+    <!-- Brand -->
+    <div>
+      <div style="display: flex; flex-direction: column; line-height: 1.1; margin-bottom: 16px;">
+      <span style="font-size: 1.8rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+      <span style="font-size: 0.9rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase;">ABNA HASSAN</span>
+    </div>
+      <p style="color: rgba(255,255,255,0.7); line-height: 1.6; font-size: 0.95rem; margin-bottom: 24px;">Votre destination mode et tech à Abéché, Tchad. Des produits premium livrés chez vous rapidement.</p>
+      <div style="display: flex; gap: 16px;">
+        <a href="#" style="color: #fff; opacity: 0.8; transition: opacity 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+        <a href="#" style="color: #fff; opacity: 0.8; transition: opacity 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+        <a href="#" style="color: #fff; opacity: 0.8; transition: opacity 0.2s;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></a>
+      </div>
+    </div>
+    
+    <!-- Shop -->
+    <div>
+      <h4 style="color: #fff; margin-bottom: 20px; font-size: 1.1rem;">Boutique</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; color: rgba(255,255,255,0.7); font-size: 0.95rem;">
+        <li><a href="produits.html?cat=all" style="color: inherit;">Tous les produits</a></li>
+        <li><a href="produits.html?cat=shirt" style="color: inherit;">Vêtements</a></li>
+        <li><a href="produits.html?cat=bag" style="color: inherit;">Sacs & Bagages</a></li>
+        <li><a href="produits.html?cat=phone" style="color: inherit;">Électronique</a></li>
+      </ul>
+    </div>
+    
+    <!-- Support -->
+    <div>
+      <h4 style="color: #fff; margin-bottom: 20px; font-size: 1.1rem;">Support</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; color: rgba(255,255,255,0.7); font-size: 0.95rem;">
+        <li><a href="contact.html" style="color: inherit;">Nous Contacter</a></li>
+        <li><a href="#" style="color: inherit;">Livraison & Retours</a></li>
+        <li><a href="#" style="color: inherit;">FAQ</a></li>
+        <li><a href="admin.html" style="color: inherit;">Espace Administrateur</a></li>
+      </ul>
+    </div>
+    
+    <!-- Contact -->
+    <div>
+      <h4 style="color: #fff; margin-bottom: 20px; font-size: 1.1rem;">Contact</h4>
+      <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 16px; color: rgba(255,255,255,0.7); font-size: 0.95rem;">
+        <li style="display: flex; align-items: center; gap: 12px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> contact@boutiquetoumai.com</li>
+        <li style="display: flex; align-items: center; gap: 12px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> 66483146 - 99788569 - 66782203</li>
+        <li style="display: flex; align-items: center; gap: 12px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4l3 3"></path></svg> Lun-Dim, 24h/24</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div style="max-width: 1200px; margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.85rem;">
+    &copy; 2026 Boutique Toumaï. Tous droits réservés.
+  </div>
+</footer>
+<script src="js/common.js"></script>
+<script>
+  let PRODUCTS = []; // rempli depuis l'API pour avoir noms/prix/catégories à jour
+
+  async function loadAndRender(){
+    if (!localStorage.getItem('kolo_token')) {
+      const section = document.querySelector('section');
+      if (section) {
+        section.style.display = 'flex';
+        section.style.justifyContent = 'center';
+        section.style.alignItems = 'center';
+        section.style.minHeight = '65vh';
+        section.innerHTML = `
+          <div style="background: linear-gradient(145deg, #ffffff, #f9fafb); border: 1px solid rgba(0,0,0,0.04); border-radius: 36px; padding: 70px 48px; text-align: center; max-width: 520px; width: 100%; box-shadow: 0 24px 48px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; align-items: center; position: relative; overflow: hidden;">
+            
+            <!-- Décoration d'arrière-plan -->
+            <div style="position: absolute; top: -60px; right: -60px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; filter: blur(20px);"></div>
+            <div style="position: absolute; bottom: -60px; left: -60px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 70%); border-radius: 50%; filter: blur(20px);"></div>
+
+            <!-- Icône -->
+            <div style="width: 96px; height: 96px; background: #fff; border: 1px solid rgba(0,0,0,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 32px; color: var(--ink); box-shadow: 0 12px 24px rgba(0,0,0,0.03); z-index: 1;">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </div>
+            
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--ink); margin-bottom: 16px; letter-spacing: -0.04em; z-index: 1;">Accès Réservé</h2>
+            <p style="color: #6b7280; font-size: 1.15rem; line-height: 1.6; margin-bottom: 40px; z-index: 1;">Pour consulter votre panier et finaliser vos achats en toute sérénité, veuillez vous authentifier.</p>
+            
+            <a href="login.html" class="premium-auth-btn" style="display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: #fff; text-decoration: none; padding: 20px 56px; border-radius: 100px; font-weight: 600; font-size: 1.15rem; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1; box-shadow: 0 12px 24px rgba(0,0,0,0.1);">
+              Se connecter
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <style>
+            .premium-auth-btn:hover {
+              transform: translateY(-2px);
+              box-shadow: 0 18px 36px rgba(0,0,0,0.15);
+              background: #222;
+            }
+            .premium-auth-btn:active {
+              transform: translateY(1px);
+              box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            }
+          </style>
+        `;
+      }
+      return;
+    }
+
+    const cart = getCart();
+    const ids = Object.keys(cart);
+    if(ids.length === 0){
+      document.getElementById('items').innerHTML = `<div class="empty-msg">${t('cart_empty')} <a href="produits.html">${t('see_catalog')}</a></div>`;
+      document.getElementById('summary').style.display = 'none';
+      return;
+    }
+    try {
+      const uniqueBaseIds = [...new Set(ids.map(id => parseInt(id)))];
+      const results = await Promise.all(uniqueBaseIds.map(baseId => fetch(`/api/products/${baseId}`).then(r => r.ok ? r.json() : null)));
+      PRODUCTS = results.filter(Boolean);
+    } catch(err){
+      document.getElementById('items').innerHTML = `<div class="empty-msg">${t('cart_load_error')}</div>`;
+      return;
+    }
+    renderItems(cart);
+  }
+
+    function renderItems(cart){
+    const cartKeys = Object.keys(cart);
+    let validCount = 0;
+    const rows = cartKeys.map(cartId => {
+      const baseId = parseInt(cartId);
+      const variant = cartId.includes('_') ? cartId.split('_')[1] : null;
+      const p = PRODUCTS.find(prod => prod.id === baseId);
+      if(!p) {
+        delete cart[cartId];
+        return '';
+      }
+      validCount++;
+      
+      const qty = cart[cartId];
+      const variantText = variant ? `<div style="font-size: 0.8rem; color: var(--ink); margin-top: 4px; font-weight: 600;">Option : ${variant}</div>` : '';
+      const unitPrice = p.is_wholesale ? p.price * (1 - p.wholesale_discount / 100) : p.price;
+
+      return `
+        <div style="display: flex; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--line); align-items: stretch;">
+          
+          <div style="width: 120px; height: 160px; background: ${CAT_COLORS[p.category]}15; color: ${CAT_COLORS[p.category]}; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; position: relative;">
+            ${p.image_url 
+              ? `<img src="${p.image_url}" style="width:100%; height:100%; object-fit:cover;" alt="${p.name}">`
+              : `<div style="transform: scale(2); opacity: 0.8; display: flex; align-items: center; justify-content: center;">${ICONS[p.category]}</div>`
+            }
+          </div>
+
+          <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 4px 0;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+                <h3 style="font-size: 1.25rem; font-weight: 600; font-family: 'Outfit', sans-serif; color: var(--ink); margin: 0;">${p.name}</h3>
+                <button onclick="changeQty('${cartId}', 0)" style="background: none; border: none; cursor: pointer; color: var(--text-secondary); padding: 4px; transition: color 0.2s;" onmouseover="this.style.color='red'" onmouseout="this.style.color='var(--text-secondary)'" title="Retirer l'article">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500;">${catLabel(p.category)}</div>
+              ${p.is_wholesale ? `<div style="font-size: 0.8rem; color: #ef4444; font-weight: 700; margin-top: 4px;">En gros (-${p.wholesale_discount}%)</div>` : ''}
+              ${variantText}
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+              <div style="display: flex; align-items: center; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;">
+                <button onclick="changeQty('${cartId}', ${qty - 1})" style="background: transparent; border: none; padding: 8px 12px; cursor: pointer; color: var(--ink); font-size: 1.2rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">−</button>
+                <span style="font-size: 0.95rem; font-weight: 600; width: 40px; text-align: center; color: var(--ink);">${qty}</span>
+                <button onclick="changeQty('${cartId}', ${qty + 1})" style="background: transparent; border: none; padding: 8px 12px; cursor: pointer; color: var(--ink); font-size: 1.2rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">+</button>
+              </div>
+              </div>
+              <div style="font-size: 1.15rem; font-weight: 600; color: var(--ink);">
+                ${p.is_wholesale ? `<span style="font-size: 0.9rem; color: #999; text-decoration: line-through; margin-right: 8px;">${fmt(p.price * qty)}</span>` : ''}
+                ${fmt(unitPrice * qty)}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    document.getElementById('items').innerHTML = rows;
+    saveCart(cart);
+    updateCartBadge();
+    if (validCount === 0) {
+      document.getElementById('items').innerHTML = `<div class="empty-msg">\${t('cart_empty')} <a href="produits.html">\${t('see_catalog')}</a></div>`;
+      document.getElementById('summary').style.display = 'none';
+      return;
+    }
+
+    const subtotal = Object.keys(cart).reduce((s, cartId) => {
+      const baseId = parseInt(cartId);
+      const p = PRODUCTS.find(prod => prod.id === baseId);
+      if(!p) return s;
+      const unitPrice = p.is_wholesale ? p.price * (1 - p.wholesale_discount / 100) : p.price;
+      return s + unitPrice * cart[cartId];
+    }, 0);
+    document.getElementById('subtotal').textContent = fmt(subtotal);
+      document.getElementById('total').textContent = fmt(subtotal + 2000);
+    document.getElementById('summary').style.display = PRODUCTS.length ? 'block' : 'none';
+  }
+
+  function changeQty(id, qty){
+    setQty(id, qty);
+    loadAndRender();
+  }
+
+  document.getElementById('checkoutForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const cart = getCart();
+    const items = Object.entries(cart).map(([cartId, quantity]) => {
+      const baseId = parseInt(cartId);
+      const size = cartId.includes('_') ? cartId.split('_')[1] : null;
+      return { product_id: baseId, quantity, size };
+    });
+    const payload = {
+      customer_name: document.getElementById('customer_name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      address: document.getElementById('address').value.trim(),
+      items
+    };
+    const msg = document.getElementById('formMsg');
+    msg.textContent = t('sending');
+    msg.className = 'form-msg';
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if(!res.ok) throw new Error(data.error || 'Erreur');
+      msg.textContent = `#${data.order_id} — ${fmt(data.total)}`;
+      msg.className = 'form-msg ok';
+      saveCart({});
+      updateCartBadge();
+      document.getElementById('checkoutForm').reset();
+      setTimeout(loadAndRender, 1500);
+    } catch(err){
+      msg.textContent = err.message || t('order_failed');
+      msg.className = 'form-msg err';
+    }
+  });
+
+  function onLangChange(){ loadAndRender(); }
+
+
+  // Auto-fill customer info if logged in
+  const userStr = localStorage.getItem('kolo_user');
+  if (userStr) {
+    try {
+      const user = JSON.parse(userStr);
+      if (user.name) document.getElementById('customer_name').value = user.name;
+      if (user.email) document.getElementById('email').value = user.email;
+    } catch(e) {}
+  }
+
+
+  loadAndRender();
+</script>
+</body>
+</html>

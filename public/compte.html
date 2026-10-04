@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mon Compte - Boutique Toumaï</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { background-color: #FAFAFA; }
+    .account-wrapper { max-width: 1200px; margin: 120px auto 80px; padding: 0 32px; display: grid; grid-template-columns: 300px 1fr; gap: 48px; }
+    
+    @media (max-width: 900px) {
+      .account-wrapper { grid-template-columns: 1fr; }
+    }
+
+    /* Sidebar */
+    .account-sidebar { background: #FFF; padding: 32px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); height: fit-content; }
+    .avatar { width: 64px; height: 64px; border-radius: 50%; background: #000; color: #FFF; display: flex; align-items: center; justify-content: center; font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+    .sidebar-name { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: #000; margin-bottom: 4px; }
+    .sidebar-email { font-size: 0.95rem; color: #666; margin-bottom: 32px; word-break: break-all; }
+    
+    .sidebar-nav { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .sidebar-link { padding: 12px 16px; border-radius: 10px; font-weight: 500; color: #000; text-decoration: none; display: flex; align-items: center; gap: 12px; transition: all 0.2s ease; background: #F5F5F5; }
+    .sidebar-link.active { background: #000; color: #FFF; }
+    .sidebar-link:hover:not(.active) { background: #EAEAEA; }
+    
+    .btn-logout { width: 100%; padding: 14px; background: transparent; border: 1px solid #FF4D4D; color: #FF4D4D; font-family: 'Inter', sans-serif; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+    .btn-logout:hover { background: #FF4D4D; color: #FFF; }
+
+    /* Main Content */
+    .account-main h2 { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 32px; letter-spacing: -0.02em; }
+    
+    .order-card { background: #FFF; border-radius: 20px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s ease; }
+    .order-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.04); }
+    
+    .order-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #F0F0F0; }
+    @media (max-width: 600px) {
+      .order-header { flex-direction: column; gap: 16px; }
+      .order-header > div:last-child { text-align: left !important; }
+    }
+    
+    .order-id { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.4rem; color: #000; margin-bottom: 6px; }
+    .order-date { font-size: 0.95rem; color: #888; }
+    .order-total { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; color: #000; }
+    
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; }
+    .status-badge::before { content: ''; width: 8px; height: 8px; border-radius: 50%; }
+    
+    .status-en_attente { background: #FFF8E1; color: #F57F17; }
+    .status-en_attente::before { background: #F57F17; }
+    
+    .status-confirmee { background: #E3F2FD; color: #1565C0; }
+    .status-confirmee::before { background: #1565C0; }
+    
+    .status-livree { background: #E8F5E9; color: #2E7D32; }
+    .status-livree::before { background: #2E7D32; }
+    
+    .status-annulee { background: #FFEBEE; color: #C62828; }
+    .status-annulee::before { background: #C62828; }
+    
+    .order-details-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; }
+    @media (max-width: 768px) { .order-details-grid { grid-template-columns: 1fr; } }
+    
+    .info-block h4 { font-family: 'Outfit', sans-serif; font-size: 1rem; color: #000; margin-bottom: 8px; font-weight: 600; }
+    .info-block p { font-size: 0.95rem; color: #666; line-height: 1.6; margin: 0; }
+    
+    .order-items { list-style: none; padding: 0; margin: 0; background: #F9F9F9; border-radius: 12px; overflow: hidden; }
+    .order-item { display: flex; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #EAEAEA; font-size: 0.95rem; align-items: center; }
+    .order-item:last-child { border-bottom: none; }
+    .item-name { font-weight: 600; color: #000; display: flex; align-items: center; gap: 12px; }
+    .item-qty { background: #E0E0E0; color: #000; padding: 2px 8px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; }
+    .item-meta { color: #666; font-weight: 500; }
+    
+    .empty-state { text-align: center; padding: 80px 32px; background: #FFF; border-radius: 20px; border: 1px dashed #D0D0D0; box-shadow: 0 4px 15px rgba(0,0,0,0.01); }
+    .empty-state svg { width: 64px; height: 64px; color: #ccc; margin-bottom: 24px; }
+    .empty-state h3 { font-family: 'Outfit', sans-serif; margin-bottom: 12px; font-size: 1.8rem; color: #000; }
+    .empty-state p { color: #666; margin-bottom: 32px; font-size: 1.1rem; }
+    
+    /* Skeleton Loader */
+    .skeleton { background: #f0f0f0; background-image: linear-gradient(90deg, #f0f0f0 0px, #f8f8f8 40px, #f0f0f0 80px); background-size: 200% 100%; animation: shimmer 1.5s infinite linear; border-radius: 4px; }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  </style>
+
+<style>
+  .avatar { 
+    cursor: pointer; 
+    position: relative; 
+    overflow: hidden; 
+    background-size: cover; 
+    background-position: center; 
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  .avatar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z'/%3E%3Ccircle cx='12' cy='13' r='4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .avatar:hover::after {
+    opacity: 1;
+  }
+  .avatar:hover {
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+    transform: scale(1.05);
+  }
+  .avatar img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transition: transform 0.3s ease;
+  }
+  .avatar:hover img {
+    transform: scale(1.1);
+  }
+</style>
+</head>
+<body>
+
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <a href="index.html" class="logo" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+      <img src="images/logo.png" alt="Boutique Toumaï" style="width: 46px; height: 46px; border-radius: 50%; object-fit: cover; border: 2px solid #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.15);" />
+      <div style="display: flex; flex-direction: column; line-height: 1.1;">
+        <span style="font-size: 1.45rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; color: #000000;">BOUTIQUE TOUMAÏ</span>
+        <span style="font-size: 0.8rem; font-weight: 800; color: #000000; letter-spacing: 0.05em; text-transform: uppercase; font-family: 'Outfit', sans-serif;">ABNA HASSAN</span>
+      </div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="nav-link" data-i18n="nav_home">ACCUEIL</a>
+      <a href="produits.html" class="nav-link" data-i18n="nav_shop">BOUTIQUE</a>
+      <a href="collections.html" class="nav-link" data-i18n="nav_collections">COLLECTIONS</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="contact.html" class="nav-link" data-i18n="nav_help" style="font-size: 0.8rem; font-weight: 600;">AIDE</a>
+      <a href="compte.html" class="nav-link" data-i18n="nav_account" style="font-size: 0.8rem; font-weight: 600;">COMPTE</a>
+      
+      <select id="langSelect" class="lang-select">
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+        <option value="ar">AR</option>
+      </select>
+
+      <button id="themeToggle" class="theme-toggle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+
+      <button class="hamburger-btn" onclick="document.getElementById('mobileMenu').classList.add('open')" aria-label="Menu" style="margin-left: 8px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <a href="panier.html" class="cart-btn" aria-label="Panier" style="position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: var(--ink); text-decoration: none; transition: opacity 0.2s;">
+  <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+  <span class="cart-count" style="position: absolute; top: 0px; right: 0px; background: var(--ink); color: var(--paper); font-size: 0.75rem; font-weight: 800; padding: 2px; border-radius: 50%; min-width: 20px; text-align: center; border: 2px solid var(--paper);">0</span>
+</a>
+    </div>
+  </header>
+
+  <!-- Account Layout -->
+  <div class="account-wrapper">
+    
+    <!-- Sidebar -->
+    <aside class="account-sidebar">
+      <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadAvatar(event)">
+      <div class="avatar" id="userAvatar" onclick="document.getElementById('avatarInput').click()">K</div>
+      <div class="sidebar-name" id="userName">Chargement...</div>
+      <div class="sidebar-email" id="userEmail">veuillez patienter</div>
+      
+      <div class="sidebar-nav">
+        <a href="#" class="sidebar-link active">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Mes Commandes
+        </a>
+      </div>
+      
+      <button onclick="logout()" class="btn-logout">Déconnexion</button>
+<button class="btn-secondary" style="width: 100%; margin-top: 12px; justify-content:center;" onclick="document.getElementById('passwordModal').style.display='flex'">Changer Mot de Passe</button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="account-main">
+      <h2>Historique d'Achats</h2>
+      
+      <div id="ordersContainer">
+        <!-- Skeleton Loading -->
+        <div class="order-card" style="display:flex; flex-direction:column; gap:20px;">
+          <div class="skeleton" style="width:200px; height:32px;"></div>
+          <div class="skeleton" style="width:100px; height:20px;"></div>
+          <div class="skeleton" style="width:100%; height:100px; margin-top:20px;"></div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    const token = localStorage.getItem('kolo_token');
+    const userStr = localStorage.getItem('kolo_user');
+    
+    if (!token || !userStr || userStr === 'null' || userStr === 'undefined') {
+      localStorage.removeItem('kolo_token');
+      localStorage.removeItem('kolo_user');
+      window.location.replace('login.html');
+    } else {
+      try {
+        const user = JSON.parse(userStr);
+        if (!user || typeof user !== 'object') throw new Error("Invalid user");
+
+        // 🔒 Si l'utilisateur est admin, le rediriger vers le panneau d'administration
+        if (user.role === 'admin') {
+          window.location.replace('manager.html');
+        }
+        
+        let userName = 'Utilisateur';
+        if (user.name) userName = String(user.name);
+        else if (user.email) userName = String(user.email).split('@')[0];
+        
+        document.getElementById('userName').textContent = userName;
+        document.getElementById('userEmail').textContent = user.email || '';
+        document.getElementById('userAvatar').textContent = userName ? userName.charAt(0).toUpperCase() : 'U';
+      } catch (e) {
+        console.error('Erreur parsing user', e);
+        localStorage.removeItem('kolo_token');
+        localStorage.removeItem('kolo_user');
+        window.location.replace('login.html');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('kolo_token');
+      localStorage.removeItem('kolo_user');
+      window.location.replace('login.html');
+    }
+
+    const statusLabels = {
+      'en_attente': 'En attente',
+      'confirmee': 'Acceptée / En préparation',
+      'livree': 'Livrée',
+      'annulee': 'Annulée'
+    };
+
+    async function loadMyOrders() {
+      try {
+        const res = await fetch('/api/account/orders', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await res.json();
+        
+        const container = document.getElementById('ordersContainer');
+        
+        if (!res.ok) {
+          container.innerHTML = `<div class="empty-state"><p style="color:#ef4444;">${data.error}</p></div>`;
+          return;
+        }
+
+        if (data.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+              <h3>Aucune commande pour le moment</h3>
+              <p>Votre historique est vide. Découvrez nos dernières collections et passez votre première commande !</p>
+              <a href="produits.html" class="btn-primary" style="display:inline-block; padding:16px 32px; font-size:1.1rem; border-radius:12px;">Découvrir la boutique</a>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = data.map(o => `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <div class="order-id">Commande #${o.id}</div>
+                <div class="order-date">Effectuée le ${new Date(o.created_at).toLocaleString('fr-FR')}</div>
+              </div>
+              <div style="text-align:right;">
+                <div class="status-badge status-${o.status}">${statusLabels[o.status] || o.status}</div>
+                ${o.status === 'confirmee' && o.delivery_date ? `<div style="margin-top:12px; font-size:0.9rem; color:#429214; font-weight:700; background:#e8f5e9; display:inline-block; padding:4px 10px; border-radius:6px;">🚚 Prévu : ${o.delivery_date}</div>` : ''}
+                <div class="order-total">${Number(o.total).toLocaleString('fr-FR')} FCFA</div>
+              </div>
+            </div>
+            
+            <div class="order-details-grid">
+              <div class="info-block">
+                <h4>Informations de Livraison</h4>
+                <p><strong>${o.customer_name}</strong><br>${o.phone}<br>${o.address}</p>
+              </div>
+              <div class="info-block">
+                <h4>Articles (${o.items.length})</h4>
+                <ul class="order-items">
+                  ${o.items.map(i => `
+                    <li class="order-item">
+                      <span class="item-name"><span class="item-qty">${i.quantity}x</span> ${i.name}</span>
+                      <span class="item-meta">${Number(i.unit_price).toLocaleString('fr-FR')} FCFA</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (err) {
+        document.getElementById('ordersContainer').innerHTML = `<div class="empty-state"><p style="color:#ef4444;">Erreur de connexion au serveur.</p></div>`;
+      }
+    }
+
+    // Load after a small delay to show the nice skeleton animation briefly
+    setTimeout(loadMyOrders, 400);
+  
+  async function uploadAvatar(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const token = localStorage.getItem('kolo_token');
+    const formData = new FormData();
+    formData.append('avatar', file);
+    
+    // Optimistic UI update
+    const reader = new FileReader();
+    reader.onload = (re) => {
+      document.getElementById('userAvatar').innerHTML = `<img src="${re.target.result}" alt="Avatar">`;
+    };
+    reader.readAsDataURL(file);
+
+    try {
+      const res = await fetch('/api/auth/avatar', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token },
+        body: formData
+      });
+      const data = await res.json();
+      if (data.avatar_url) {
+        const user = JSON.parse(localStorage.getItem('kolo_user'));
+        user.avatar_url = data.avatar_url;
+        localStorage.setItem('kolo_user', JSON.stringify(user));
+        document.getElementById('userAvatar').innerHTML = `<img src="${data.avatar_url}" alt="Avatar">`;
+      }
+    } catch(err) {
+      console.error('Erreur upload:', err);
+    }
+  }
+
+</script>
+
+  <div id="passwordModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); align-items:center; justify-content:center; z-index:100; padding:24px;">
+    <div style="background:#fff; padding:32px; border-radius:16px; max-width:400px; width:100%; box-shadow:0 10px 40px rgba(0,0,0,0.1);">
+      <h3 style="font-family:'Outfit', sans-serif; font-size:1.5rem; margin-bottom:8px;">Changer le mot de passe</h3>
+      <form id="passwordForm">
+        <div style="position:relative; margin-bottom:16px;">
+          <input type="password" id="currPass" placeholder="Mot de passe actuel" required style="width:100%; padding:14px 40px 14px 14px; border:1px solid #ddd; border-radius:8px; font-family:'Inter', sans-serif;">
+          <button type="button" onclick="togglePassword('currPass', this)" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#666; padding:0; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+        <div style="position:relative; margin-bottom:16px;">
+          <input type="password" id="newPass" placeholder="Nouveau mot de passe" required style="width:100%; padding:14px 40px 14px 14px; border:1px solid #ddd; border-radius:8px; font-family:'Inter', sans-serif;">
+          <button type="button" onclick="togglePassword('newPass', this)" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#666; padding:0; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+        <button type="submit" class="submit-btn" style="width:100%; margin-top:0;">Changer</button>
+        <button type="button" class="btn-secondary" style="width:100%; margin-top:8px; text-align:center;" onclick="document.getElementById('passwordModal').style.display='none'">Annuler</button>
+      </form>
+    </div>
+  </div>
+  
+
+  <script>
+    if (!window.passwordFormListenerAdded) {
+      document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+          const res = await fetch('/api/auth/change-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('kolo_token') },
+            body: JSON.stringify({
+              currentPassword: document.getElementById('currPass').value,
+              newPassword: document.getElementById('newPass').value
+            })
+          });
+          const data = await res.json();
+          if(!res.ok) throw new Error(data.error);
+          
+          if(typeof koloAlert !== 'undefined') await koloAlert(data.message || 'Mot de passe modifié avec succès !');
+          else alert(data.message || 'Mot de passe modifié avec succès !');
+          
+          document.getElementById('passwordModal').style.display='none';
+          document.getElementById('passwordForm').reset();
+        } catch(err) {
+          if(typeof koloAlert !== 'undefined') await koloAlert(err.message);
+          else alert(err.message);
+        }
+      });
+      window.passwordFormListenerAdded = true;
+    }
+  </script>
+  
+
+  <script>
+  function togglePassword(id, btn) {
+    const input = document.getElementById(id);
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>';
+    } else {
+      input.type = 'password';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>';
+    }
+  }
+  </script>
+  
+</body>
+</html>
