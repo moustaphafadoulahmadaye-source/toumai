@@ -145,6 +145,40 @@
   .divider:not(:empty)::after {
     margin-left: .5em;
   }
+
+  @media (max-width: 600px) {
+    .login-content {
+      padding: 24px 18px calc(70px + env(safe-area-inset-bottom, 24px)) !important;
+      min-height: 100vh !important;
+      box-sizing: border-box !important;
+    }
+    .login-header {
+      margin-bottom: 24px !important;
+      gap: 12px !important;
+    }
+    .login-header a:first-child {
+      margin-bottom: 0 !important;
+    }
+    .login-header a:first-child span:first-child {
+      font-size: 1.2rem !important;
+    }
+    .login-header a:first-child span:last-child {
+      font-size: 0.7rem !important;
+    }
+    .login-header a:last-child {
+      padding: 6px 14px !important;
+      font-size: 0.8rem !important;
+      white-space: nowrap !important;
+    }
+    .login-form-container h1 {
+      font-size: 1.6rem !important;
+    }
+    .login-form-container p {
+      font-size: 0.9rem !important;
+      margin-bottom: 20px !important;
+    }
+  }
+
 </style>
   
 

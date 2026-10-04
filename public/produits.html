@@ -104,18 +104,18 @@
   </div>
 </div>
 
-<section style="max-width: 1400px; margin: 80px auto 120px; padding: 0 24px;">
+<section class="catalog-section" style="max-width: 1400px; margin: 40px auto 120px; padding: 0 24px;">
   
-  <div style="margin-bottom: 60px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; border-bottom: 2px solid #000; padding-bottom: 24px;">
+  <div style="margin-bottom: 32px; display: flex; flex-direction: column; gap: 20px; border-bottom: 2px solid var(--line, #e5e5e5); padding-bottom: 16px;">
     <div>
-      <h1 id="catTitle" style="font-size: 3.5rem; font-weight: 800; font-family: 'Outfit', sans-serif; letter-spacing: -0.03em; text-transform: uppercase; margin: 0; line-height: 1;">Tous les produits</h1>
+      <h1 id="catTitle" style="font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; font-family: 'Outfit', sans-serif; letter-spacing: -0.03em; text-transform: uppercase; margin: 0; line-height: 1.1;">Tous les produits</h1>
       <p class="sub" id="catSub" data-i18n="loading" style="margin-top: 12px; color: #666; font-size: 1.1rem; margin-bottom: 0;">Chargement…</p>
     </div>
     
-    <div id="cats" style="display: flex; gap: 32px; flex-wrap: wrap; align-items: center;"></div>
+    <div id="cats" class="cats-bar" style="display: flex; gap: 8px; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 6px;"></div>
   </div>
 
-  <div class="grid" id="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px;"></div>
+  <div class="grid" id="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;"></div>
 </section>
 
 <!-- Product Modal -->
@@ -225,8 +225,7 @@
   function renderCats(){
     const cats = ["all","shirt","veste","chaussures","bag","parfum","enfants","kids_1_4","kids_5_12","kids_13_18","chaussures_enfants","phone","gros","other"];
     document.getElementById('cats').innerHTML = cats.map(c => `
-      <a href="produits.html?cat=${c}" style="font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: ${c === activeCat ? '700' : '500'}; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: none; color: ${c === activeCat ? '#000' : '#888'}; display: flex; align-items: center; gap: 8px; transition: color 0.2s;" onmouseover="this.style.color='#000'" onmouseout="this.style.color='${c === activeCat ? '#000' : '#888'}'">
-        ${c === activeCat ? '<span style="width:6px; height:6px; background:#000; border-radius:50%; display:block;"></span>' : ''}
+      <a href="produits.html?cat=${c}" class="cat-pill ${c === activeCat ? 'active' : ''}">
         ${catLabel(c)}
       </a>
     `).join('');
@@ -257,31 +256,32 @@
       return;
     }
     document.getElementById('grid').innerHTML = products.map(p => `
-            <div onclick="openProductModal(${p.id})" style="cursor: pointer; display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;">
-          <!-- Image Container -->
-          <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f5f5f5; aspect-ratio: 4/3;">
-            ${p.image_url 
-               ? `<img src="${p.image_url}" alt="${p.name}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />` 
-               : `<div style="position: absolute; inset: 0; background: ${CAT_COLORS[p.category] || '#eee'}; display: flex; align-items: center; justify-content: center; transition: transform 0.4s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"><div style="width: 40%; color: #fff; opacity: 0.5;">${ICONS[p.category]}</div></div>`}
-            
-            <button onclick="event.stopPropagation(); openProductModal(${p.id})" style="position: absolute; bottom: 12px; right: 12px; background: var(--ink, #000); color: var(--paper, #fff); border: none; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.2s, background 0.2s;" onmouseover="this.style.transform='scale(1.1)'; this.style.background='#333'" onmouseout="this.style.transform='scale(1)'; this.style.background='var(--ink, #000)'" title="Ajouter au panier">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-          </div>
-          <!-- Text Info -->
-          <div style="padding: 0 4px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;">
-            <div style="flex: 1;">
-              <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary, #666); margin-bottom: 6px; font-weight: 600;">${catLabel(p.category)}</div>
-              <div style="font-size: 1.1rem; font-weight: 700; color: var(--ink, #000); line-height: 1.3;">${p.name}</div>
-            </div>
-            <div style="text-align: right; white-space: nowrap;">
-              ${p.is_wholesale ? `<div style="font-size: 0.85rem; color: #ef4444; font-weight: 700; margin-bottom: 2px;">-${p.wholesale_discount}% En Gros</div>
-                                  <div style="font-size: 1.1rem; font-weight: 700; color: var(--ink, #000);">${fmt(p.price * (1 - p.wholesale_discount / 100))}</div>
-                                  <div style="font-size: 0.85rem; color: #999; text-decoration: line-through;">${fmt(p.price)}</div>` 
-                               : `<div style="font-size: 1.1rem; font-weight: 700; color: var(--ink, #000);">${fmt(p.price)}</div>`}
-            </div>
+      <div onclick="openProductModal(${p.id})" class="p-card-item" style="cursor: pointer; display: flex; flex-direction: column; gap: 8px;">
+        <div style="position: relative; border-radius: 12px; overflow: hidden; background: #f5f5f5; aspect-ratio: 1/1;">
+          ${p.image_url 
+             ? `<img src="${p.image_url}" alt="${p.name}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" loading="lazy" />` 
+             : `<div style="position: absolute; inset: 0; background: ${CAT_COLORS[p.category] || '#eee'}; display: flex; align-items: center; justify-content: center;"><div style="width: 40%; color: #fff; opacity: 0.5;">${ICONS[p.category]}</div></div>`}
+          
+          <button onclick="event.stopPropagation(); openProductModal(${p.id})" style="position: absolute; bottom: 8px; right: 8px; background: var(--ink, #000); color: var(--paper, #fff); border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.18);" title="Ajouter au panier">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+        <div style="padding: 2px 2px 8px; display: flex; flex-direction: column; gap: 4px;">
+          <div style="font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary, #777); font-weight: 600;">${catLabel(p.category)}</div>
+          <div style="font-size: 0.95rem; font-weight: 700; color: var(--ink, #000); line-height: 1.25; min-height: 2.5em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${p.name}</div>
+          <div style="margin-top: 2px;">
+            ${p.is_wholesale ? `
+              <div style="display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;">
+                <span style="font-size: 1rem; font-weight: 800; color: var(--ink, #000);">${fmt(p.price * (1 - p.wholesale_discount / 100))}</span>
+                <span style="font-size: 0.78rem; color: #999; text-decoration: line-through;">${fmt(p.price)}</span>
+                <span style="font-size: 0.7rem; color: #ef4444; font-weight: 700;">-${p.wholesale_discount}%</span>
+              </div>
+            ` : `
+              <div style="font-size: 1rem; font-weight: 800; color: var(--ink, #000);">${fmt(p.price)}</div>
+            `}
           </div>
         </div>
+      </div>
     `).join('');
   }
 
