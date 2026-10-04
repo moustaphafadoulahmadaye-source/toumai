@@ -197,6 +197,176 @@
   .stat-trend { padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; }
   .stat-trend.positive { color: #059669; background: rgba(16, 185, 129, 0.15); }
 
+
+  /* Sidebar Toggle Button */
+  .sidebar-toggle-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--ink);
+    padding: 6px;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .sidebar-toggle-btn:hover {
+    background: rgba(0,0,0,0.05);
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+  }
+
+  /* ---- RESPONSIVE MOBILE STYLES (≤ 900px) ---- */
+  @media (max-width: 900px) {
+    .sidebar-toggle-btn {
+      display: flex !important;
+    }
+
+    .manager-container {
+      display: block !important;
+      width: 100% !important;
+      min-height: auto !important;
+    }
+
+    /* Off-canvas slide-out sidebar */
+    .sidebar {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      width: 290px !important;
+      max-width: 85vw !important;
+      height: 100vh !important;
+      background: var(--paper, #fff) !important;
+      z-index: 1000 !important;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25) !important;
+      transform: translateX(-100%);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      padding: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 4px !important;
+      box-sizing: border-box !important;
+    }
+
+    .sidebar.open {
+      transform: translateX(0) !important;
+    }
+
+    .sidebar-mobile-header {
+      display: flex !important;
+    }
+
+    .sidebar .tab-btn {
+      padding: 14px 24px !important;
+      font-size: 1rem !important;
+    }
+
+    .sidebar-overlay.active {
+      display: block !important;
+    }
+
+    /* Full width content area */
+    .content-area {
+      padding: 20px 14px 80px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+    }
+
+    .section-title {
+      font-size: 1.45rem !important;
+      margin-bottom: 20px !important;
+      padding-bottom: 14px !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 12px !important;
+    }
+
+    /* KPI cards on mobile: 2 clean columns or 1 column */
+    div[style*="grid-template-columns:repeat(auto-fit, minmax(220px, 1fr))"] {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 12px !important;
+    }
+
+    .stat-card {
+      padding: 16px !important;
+      border-radius: 16px !important;
+    }
+    .stat-card-value {
+      font-size: 1.7rem !important;
+    }
+    .stat-card-header {
+      gap: 10px !important;
+      margin-bottom: 14px !important;
+    }
+    .stat-card-header .icon-wrapper {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 10px !important;
+    }
+    .stat-card-header .icon-wrapper svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    .stat-card-title {
+      font-size: 0.7rem !important;
+    }
+    .stat-card-subtitle {
+      font-size: 0.8rem !important;
+      margin-top: 10px !important;
+    }
+
+    /* Forms on mobile */
+    .form-grid {
+      grid-template-columns: 1fr !important;
+      padding: 20px 16px !important;
+      gap: 16px !important;
+      border-radius: 16px !important;
+    }
+
+    /* Tables on mobile: horizontal scroll container */
+    .data-table-wrapper, div:has(> table) {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+      width: 100% !important;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    .data-table {
+      min-width: 580px;
+    }
+
+    /* Header on mobile */
+    header {
+      padding: 10px 14px !important;
+    }
+    .logo {
+      font-size: 1.15rem !important;
+    }
+    .logo span {
+      display: none !important;
+    }
+    .logout-btn {
+      padding: 8px 12px !important;
+      font-size: 0.7rem !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    div[style*="grid-template-columns:repeat(auto-fit, minmax(220px, 1fr))"] {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
 </style>
 
 
@@ -243,13 +413,26 @@
 
 
 <header>
-  <a href="index.html" class="logo">TOUMAÏ <span>Manager</span></a>
-  <button class="logout-btn" onclick="logout()">Déconnexion</button>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <button id="sidebarToggleBtn" class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <a href="index.html" class="logo">TOUMAÏ <span>Manager</span></a>
+  </div>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <a href="index.html" target="_blank" class="btn-secondary" style="padding: 8px 14px; font-size: 0.75rem; border-radius: 8px; text-decoration: none;">🌐 Site</a>
+    <button class="logout-btn" onclick="logout()">Déconnexion</button>
+  </div>
 </header>
+<div id="sidebarOverlay" class="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <div class="manager-container">
   
   <div class="sidebar">
+    <div class="sidebar-mobile-header" style="display: none; padding: 16px 20px; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line);">
+      <span style="font-weight: 800; text-transform: uppercase; font-size: 0.95rem; font-family: 'Outfit', sans-serif;">Menu Gestion</span>
+      <button onclick="closeSidebar()" style="background: none; border: none; font-size: 1.8rem; cursor: pointer; color: var(--ink); line-height: 1; padding: 4px;">&times;</button>
+    </div>
     <button class="tab-btn active" id="btn-dashboard" onclick="switchTab('dashboard')">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg> Dashboard
     </button>
@@ -914,7 +1097,24 @@
     window.location.href = 'index.html';
   }
 
+  
+  function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.toggle('open');
+    if (overlay) overlay.classList.toggle('active');
+  }
+
+  function closeSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    if (sidebar) sidebar.classList.remove('open');
+    if (overlay) overlay.classList.remove('active');
+  }
+
   function switchTab(tabId) {
+    closeSidebar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     const tabEl = document.getElementById('tab-' + tabId);
