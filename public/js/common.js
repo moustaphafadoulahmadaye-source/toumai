@@ -61,8 +61,10 @@ function cartCount(){
   return Object.values(cart).reduce((a,b)=>a+b,0);
 }
 function updateCartBadge(){
-  const el = document.getElementById('cartCount');
-  if(el) el.textContent = cartCount();
+  const count = cartCount();
+  document.querySelectorAll('.cart-count, #cartCount').forEach(el => {
+    el.textContent = count;
+  });
 }
 document.addEventListener('DOMContentLoaded', updateCartBadge);
 

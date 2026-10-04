@@ -5,7 +5,7 @@ const router=express.Router();
 const DELIVERY_FEE=Number(process.env.DELIVERY_FEE||2000);
 
 function validItem(i){ return Number.isInteger(Number(i.product_id)) && Number.isInteger(Number(i.quantity)) && Number(i.quantity)>0 && Number(i.quantity)<=99; }
-router.post('/', authMiddleware, async (req,res)=>{
+router.post('/', async (req,res)=>{
   const name=String(req.body.customer_name||'').trim(), email=String(req.body.email||'').trim().toLowerCase(), phone=String(req.body.phone||'').trim(), address=String(req.body.address||'').trim(), items=req.body.items;
   if(name.length<2||name.length>150||!/^\S+@\S+\.\S+$/.test(email)||phone.length<5||phone.length>30||address.length<5||address.length>255||!Array.isArray(items)||items.length===0||items.length>50||items.some(i=>!validItem(i))) return res.status(400).json({error:'Informations de commande invalides.'});
   try{
