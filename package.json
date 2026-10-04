@@ -1,0 +1,24 @@
+{
+  "name": "toumai-market",
+  "version": "1.0.0",
+  "description": "Boutique en ligne Toumaï - Kolo Market",
+  "main": "backend/server.js",
+  "scripts": {
+    "postinstall": "cd backend && npm install",
+    "build": "cd backend && npm install",
+    "start": "node backend/server.js",
+    "dev": "cd backend && npm run dev"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "ecommerce",
+    "toumai",
+    "kolo-market",
+    "express",
+    "sqlite"
+  ],
+  "author": "Toumaï",
+  "license": "ISC"
+}
