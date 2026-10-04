@@ -39,6 +39,16 @@ function saveCart(cart){
   catch(e){ /* stockage indisponible */ }
 }
 function addToCart(id, qty = 1){
+  const userStr = localStorage.getItem('kolo_user');
+  if (userStr) {
+    try {
+      const user = JSON.parse(userStr);
+      if (user && user.role === 'admin') {
+        alert("En tant qu'administrateur, vous gérez la boutique. Le panier et les commandes sont réservés aux clients.");
+        return;
+      }
+    } catch(e) {}
+  }
   const token = localStorage.getItem('kolo_token');
   if (!token) {
     showAuthModal();
@@ -217,14 +227,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('kolo_token');
-  if (token) {
-    const compteLinks = document.querySelectorAll('a[href="login.html"]');
-    compteLinks.forEach(link => {
-      // Si c'est le lien COMPTE, changer pour compte.html
-      if (link.textContent.trim().toUpperCase() === 'COMPTE' || link.dataset.i18n === 'nav_account') {
-        link.href = 'compte.html';
-      }
-    });
+  const userStr = localStorage.getItem('kolo_user');
+  let user = null;
+  if (userStr) {
+    try { user = JSON.parse(userStr); } catch(e) {}
+  }
+
+  if (token && user) {
+    if (user.role === 'admin') {
+      // Nettoyer tout panier accidentel de l'admin
+      saveCart({});
+      updateCartBadge();
+
+      // Remplacer lien Compte par Manager
+      document.querySelectorAll('a[href="login.html"], a[href="compte.html"]').forEach(link => {
+        if (link.textContent.trim().toUpperCase() === 'COMPTE' || link.dataset.i18n === 'nav_account') {
+          link.href = 'manager.html';
+          link.textContent = 'Manager';
+        }
+      });
+
+      // Rediriger l'admin s'il clique sur l'icône panier
+      document.querySelectorAll('a[href="panier.html"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          alert("En tant qu'administrateur, le panier et les commandes sont réservés aux clients. Redirection vers votre tableau de bord Manager.");
+          window.location.href = 'manager.html';
+        });
+      });
+    } else {
+      document.querySelectorAll('a[href="login.html"]').forEach(link => {
+        if (link.textContent.trim().toUpperCase() === 'COMPTE' || link.dataset.i18n === 'nav_account') {
+          link.href = 'compte.html';
+        }
+      });
+    }
   }
 });
 

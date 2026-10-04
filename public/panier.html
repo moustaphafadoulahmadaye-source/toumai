@@ -200,6 +200,19 @@
   let PRODUCTS = []; // rempli depuis l'API pour avoir noms/prix/catégories à jour
 
   async function loadAndRender(){
+    const userStr = localStorage.getItem('kolo_user');
+    if (userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        if (user && user.role === 'admin') {
+          saveCart({});
+          updateCartBadge();
+          alert("L'espace Panier et Commandes est réservé aux clients. En tant qu'administrateur, vous êtes redirigé vers votre espace Manager.");
+          window.location.replace('manager.html');
+          return;
+        }
+      } catch(e) {}
+    }
     if (!localStorage.getItem('kolo_token')) {
       const section = document.querySelector('section');
       if (section) {
