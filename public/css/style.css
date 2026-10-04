@@ -1,3 +1,10 @@
+
+/* GLOBAL OVERFLOW PROTECTION — PREVENTS 50% SHRINK / HORIZONTAL ZOOM-OUT */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
@@ -907,3 +914,50 @@ body {
 }
 
 
+
+
+/* ---- CONTACT PAGE RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .contact-section, section:has(#contactForm) {
+    padding: 24px 16px 60px !important;
+    gap: 32px !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .contact-section > div, section:has(#contactForm) > div {
+    flex: 1 1 100% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 0 !important;
+    gap: 24px !important;
+    box-sizing: border-box !important;
+  }
+  .contact-section div[style*="height: 400px"],
+  section:has(#contactForm) div[style*="height: 400px"] {
+    height: 240px !important;
+  }
+  .contact-section h1, section:has(#contactForm) h1 {
+    font-size: 2.2rem !important;
+    padding: 20px !important;
+  }
+  .contact-section h2, section:has(#contactForm) h2 {
+    font-size: 1.8rem !important;
+  }
+  .contact-section p, section:has(#contactForm) p {
+    font-size: 0.95rem !important;
+    margin-bottom: 24px !important;
+  }
+  #contactForm {
+    gap: 24px !important;
+    width: 100% !important;
+  }
+  #contactForm > div:last-of-type {
+    flex-direction: column !important;
+  }
+  #contactForm button {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+}
