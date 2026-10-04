@@ -4,8 +4,8 @@
   "description": "Boutique en ligne Toumaï - Kolo Market",
   "main": "backend/server.js",
   "scripts": {
-    "postinstall": "cd backend && npm install",
-    "build": "cd backend && npm install",
+    "postinstall": "cd backend && npm install && npm rebuild sqlite3 --build-from-source",
+    "build": "cd backend && npm install && npm rebuild sqlite3 --build-from-source",
     "start": "node backend/server.js",
     "dev": "cd backend && npm run dev"
   },
